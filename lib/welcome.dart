@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'signup.dart';
+import 'screens/home_page.dart';
 
 // Add the WelcomePage widget here
 class WelcomePage extends StatefulWidget {
@@ -73,7 +72,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     // You can save the name or proceed to signup
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => SignupPage()),
+                      MaterialPageRoute(builder: (_) => HomePage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -90,28 +89,6 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
               ),
               const SizedBox(height: 24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Bạn đã có tài khoản? ", style: TextStyle(color: Colors.black)),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (_) => LoginPage()),
-                      );
-                    },
-                    child: const Text(
-                      "Đăng nhập",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),

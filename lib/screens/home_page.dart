@@ -11,6 +11,7 @@ import 'package:mxanh_flutter/models/material_item.dart';
 import 'package:mxanh_flutter/models/product.dart';
 import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
+import 'package:mxanh_flutter/screens/account_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -81,42 +82,47 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedIndex = index;
     });
-    // Handle navigation based on index
-    switch (index) {
-      case 0:
-        // Home - already here
-        break;
-      case 1:
-        // Price list
-        print("Navigate to price list");
-        break;
-      case 2:
-        // Create order
-        _onCreateOrder();
-        break;
-      case 3:
-        // History
-        print("Navigate to history");
-        break;
-      case 4:
-        // Account
-        print("Navigate to account");
-        break;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.background,
-      appBar: CustomAppBar(
-        user: _currentUser,
-        isBalanceVisible: _isBalanceVisible,
-        onBalanceToggle: _onBalanceToggle,
-        onPointsPressed: _onPointsPressed,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+    Widget bodyContent;
+    switch (_selectedIndex) {
+      case 0:
+        bodyContent = SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 20),
+              EventBanner(event: _currentEvent, onTap: _onEventTap),
+              const SizedBox(height: 20),
+              QuickOrderSection(onCreateOrder: _onCreateOrder),
+              const SizedBox(height: 20),
+              PriceListSection(materials: _materials, onItemTap: _onMaterialTap),
+              const SizedBox(height: 20),
+              GreenStoreSection(
+                products: _products,
+                onViewAll: _onViewAllProducts,
+                onProductTap: _onProductTap,
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        );
+        break;
+      case 1:
+        bodyContent = PriceListSection(materials: _materials, onItemTap: _onMaterialTap);
+        break;
+      case 2:
+        bodyContent = QuickOrderSection(onCreateOrder: _onCreateOrder);
+        break;
+      case 3:
+        bodyContent = Text("History Page");
+        break;
+      case 4:
+        bodyContent = AccountPage();
+        break;
+      default:
+        bodyContent = Column(
           children: [
             const SizedBox(height: 20),
             EventBanner(event: _currentEvent, onTap: _onEventTap),
@@ -132,8 +138,20 @@ class _HomePageState extends State<HomePage> {
             ),
             const SizedBox(height: 20),
           ],
-        ),
-      ),
+        );
+    }
+
+    return Scaffold(
+      backgroundColor: AppColor.background,
+      appBar: _selectedIndex == 0
+          ? CustomAppBar(
+              user: _currentUser,
+              isBalanceVisible: _isBalanceVisible,
+              onBalanceToggle: _onBalanceToggle,
+              onPointsPressed: _onPointsPressed,
+            )
+          : null,
+      body: bodyContent,
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: _selectedIndex,
         onTap: _onBottomNavTap,
