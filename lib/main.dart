@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
+// import 'package:mxanh_flutter/login.dart';
+import 'package:mxanh_flutter/themes/app_theme.dart';
+import 'package:mxanh_flutter/screens/home_page.dart';
 
 void main() {
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
-    );
-  }
+  runApp(MaterialApp(
+    home: HomePage(),
+    theme: AppTheme.light,
+    darkTheme: AppTheme.dark,
+    themeMode: ThemeMode.system,
+    debugShowCheckedModeBanner: false,
+  ));
 }
