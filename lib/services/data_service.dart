@@ -1,7 +1,7 @@
-import 'package:mxanh_flutter/user.dart';
-import 'package:mxanh_flutter/material_item.dart';
-import 'package:mxanh_flutter/product.dart';
-import 'package:mxanh_flutter/event.dart';
+import 'package:mxanh_flutter/models/user.dart';
+import 'package:mxanh_flutter/models/material_item.dart';
+import 'package:mxanh_flutter/models/product.dart';
+import 'package:mxanh_flutter/models/event.dart';
 
 class DataService {
   static User getCurrentUser() {

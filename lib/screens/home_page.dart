@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mxanh_flutter/custom_app_bar.dart';
-import 'package:mxanh_flutter/event_banner.dart';
-import 'package:mxanh_flutter/quick_order_section.dart';
-import 'package:mxanh_flutter/price_list_section.dart';
-import 'package:mxanh_flutter/green_store_section.dart';
-import 'package:mxanh_flutter/custom_bottom_navigation.dart';
-import 'package:mxanh_flutter/data_service.dart';
-import 'package:mxanh_flutter/user.dart';
-import 'package:mxanh_flutter/material_item.dart';
-import 'package:mxanh_flutter/product.dart';
-import 'package:mxanh_flutter/event.dart';
+import 'package:mxanh_flutter/widgets/custom_app_bar.dart';
+import 'package:mxanh_flutter/widgets/event_banner.dart';
+import 'package:mxanh_flutter/widgets/quick_order_section.dart';
+import 'package:mxanh_flutter/widgets/price_list_section.dart';
+import 'package:mxanh_flutter/widgets/green_store_section.dart';
+import 'package:mxanh_flutter/widgets/custom_bottom_navigation.dart';
+import 'package:mxanh_flutter/services/data_service.dart';
+import 'package:mxanh_flutter/models/user.dart';
+import 'package:mxanh_flutter/models/material_item.dart';
+import 'package:mxanh_flutter/models/product.dart';
+import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 
 class HomePage extends StatefulWidget {
@@ -119,19 +119,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            EventBanner(
-              event: _currentEvent,
-              onTap: _onEventTap,
-            ),
+            EventBanner(event: _currentEvent, onTap: _onEventTap),
             const SizedBox(height: 20),
-            QuickOrderSection(
-              onCreateOrder: _onCreateOrder,
-            ),
+            QuickOrderSection(onCreateOrder: _onCreateOrder),
             const SizedBox(height: 20),
-            PriceListSection(
-              materials: _materials,
-              onItemTap: _onMaterialTap,
-            ),
+            PriceListSection(materials: _materials, onItemTap: _onMaterialTap),
             const SizedBox(height: 20),
             GreenStoreSection(
               products: _products,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
-import 'package:mxanh_flutter/material_item.dart';
+import 'package:mxanh_flutter/models/material_item.dart';
 
 class PriceListSection extends StatelessWidget {
   final List<MaterialItem> materials;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
-import 'package:mxanh_flutter/product.dart';
+import 'package:mxanh_flutter/models/product.dart';
 
 class GreenStoreSection extends StatelessWidget {
   final List<Product> products;

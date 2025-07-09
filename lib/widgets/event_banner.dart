@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
-import 'package:mxanh_flutter/event.dart';
+import 'package:mxanh_flutter/models/event.dart';
 
 class EventBanner extends StatelessWidget {
   final Event event;

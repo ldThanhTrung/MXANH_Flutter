@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
-import 'package:mxanh_flutter/user.dart';
+import 'package:mxanh_flutter/models/user.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final User user;
