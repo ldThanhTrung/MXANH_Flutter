@@ -4,14 +4,14 @@ import "login.dart";
 import 'themes/app_theme.dart';
 import 'signup.dart';
 import 'welcome.dart';
-
+import 'start_page.dart';
 
 
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
   runApp(MaterialApp(
-    home: WelcomePage(),
+    home: StartPage(),
     theme: AppTheme.light,
     darkTheme: AppTheme.dark,
     themeMode: ThemeMode.system,
