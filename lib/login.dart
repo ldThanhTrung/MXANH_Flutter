@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'user_page.dart';
@@ -110,10 +111,7 @@ void showMessage(BuildContext context, String message) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(
-                        width: 50,
-                        image: AssetImage("assets/icons/google.png"),
-                      ),
+                      Icon(FontAwesomeIcons.google, size: 50, color: Colors.red)
                     ],
                   ),
                   SizedBox(height: 50),

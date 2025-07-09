@@ -11,9 +11,12 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final nameController = TextEditingController();
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
+  final dobController = TextEditingController();
+  final genderController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
@@ -25,8 +28,11 @@ class _SignupPageState extends State<SignupPage> {
     String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
+    String name = nameController.text.trim();
+    String dob = dobController.text.trim();
+    String gender = genderController.text.trim();
 
-    if ([username, email, phone, password, confirmPassword].any((e) => e.isEmpty)) {
+    if ([username, email, phone, password, confirmPassword, name, dob, gender].any((e) => e.isEmpty)) {
       showMessage('Vui lòng nhập đầy đủ thông tin');
       return;
     }
@@ -104,11 +110,26 @@ class _SignupPageState extends State<SignupPage> {
                 borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: TextField(
-                controller: usernameController,
-                decoration: const InputDecoration(labelText: 'Username', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Họ và tên', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
                 style: TextStyle(color: Colors.black),
               ),
             ),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: TextField(
+                controller: usernameController,
+                decoration: const InputDecoration(labelText: 'Tên đăng nhập', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+
+          
             SizedBox(height: 16),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -162,6 +183,57 @@ class _SignupPageState extends State<SignupPage> {
                 decoration: const InputDecoration(labelText: 'Nhập lại mật khẩu', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
                 obscureText: true,
                 style: TextStyle(color: Colors.black),
+              ),
+            ),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: GestureDetector(
+                onTap: () async {
+                  DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime.now(),
+                  );
+                  if (picked != null) {
+                    dobController.text = "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+                  }
+                },
+                child: AbsorbPointer(
+                  child: TextField(
+                    controller: dobController,
+                    decoration: const InputDecoration(labelText: 'Ngày sinh', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColorLight,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: DropdownButtonFormField<String>(
+                value: genderController.text.isNotEmpty ? genderController.text : null,
+                items: [
+                  DropdownMenuItem(value: '0', child: Text('Nam', style: TextStyle(color: Colors.black))),
+                  DropdownMenuItem(value: '1', child: Text('Nữ', style: TextStyle(color: Colors.black))),
+                  DropdownMenuItem(value: '2', child: Text('Khác', style: TextStyle(color: Colors.black))),
+                ],
+                onChanged: (value) {
+                  genderController.text = value ?? '';
+                },
+                decoration: const InputDecoration(labelText: 'Giới tính', border: InputBorder.none, labelStyle: TextStyle(color: Colors.black)),
+                style: TextStyle(color: Colors.black),
+                dropdownColor: Theme.of(context).primaryColorLight,
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
             ),
             const SizedBox(height: 20),
