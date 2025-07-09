@@ -8,16 +8,15 @@ import 'start_page.dart';
 
 
 
+
 void main() {
-  HttpOverrides.global = MyHttpOverrides();
   runApp(MaterialApp(
-    home: StartPage(),
+    home: HomePage(),
     theme: AppTheme.light,
     darkTheme: AppTheme.dark,
     themeMode: ThemeMode.system,
     debugShowCheckedModeBanner: false,
   ));
-
 
 }
 
@@ -29,3 +28,4 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+

@@ -13,4 +13,6 @@ class AppTheme {
   // static ThemeData getCurrentTheme(bool isDarkMode) {
   //   return isDarkMode ? darkTheme : lightTheme;
   // }
+
 }
+
