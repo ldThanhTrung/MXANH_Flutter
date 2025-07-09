@@ -10,6 +10,7 @@ class AppColor {
   static Color buttonBackgroundColor = const Color(0xffF7F7F7);
   static Color buttonBackgroundColorDark = const Color(0xff121212);
 
+
   static const Color primary = Color(0xFF4CAF50);
   static const Color primaryLight = Color(0xFF66BB6A);
   static const Color primaryDark = Color(0xFF2E7D32);
