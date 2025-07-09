@@ -5,13 +5,14 @@ import 'themes/app_theme.dart';
 import 'signup.dart';
 import 'welcome.dart';
 import 'start_page.dart';
+import 'screens/home_page.dart';
 
 
 
 
 void main() {
   runApp(MaterialApp(
-    home: HomePage(),
+    home: StartPage(),
     theme: AppTheme.light,
     darkTheme: AppTheme.dark,
     themeMode: ThemeMode.system,
