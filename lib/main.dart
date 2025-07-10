@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import "login.dart";
 import 'themes/app_theme.dart';
 import 'signup.dart';
-import 'welcome.dart';
-import 'start_page.dart';
+import 'screens/welcome_page.dart';
+import 'screens/start_page.dart';
 import 'screens/home_page.dart';
-
-
 
 
 void main() {
