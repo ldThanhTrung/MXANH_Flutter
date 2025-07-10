@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mxanh_flutter/screens/start_page.dart';
+import 'package:mxanh_flutter/themes/text_styles.dart';
 import 'package:mxanh_flutter/widgets/custom_app_bar.dart';
 import 'package:mxanh_flutter/widgets/event_banner.dart';
 import 'package:mxanh_flutter/widgets/quick_order_section.dart';
@@ -12,6 +14,7 @@ import 'package:mxanh_flutter/models/product.dart';
 import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_page.dart';
+import 'package:mxanh_flutter/screens/welcome_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -68,13 +71,62 @@ class _HomePageState extends State<HomePage> {
     print("Navigate to product detail: ${product.name}");
   }
 
+  void _onViewAllMeterials() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  "Bảng giá vật liệu",
+                  style: AppTextStyles.heading3,
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: PriceListSection(
+                  materials: _materials,
+                  onItemTap: _onMaterialTap,
+                  onViewAll: () {},
+                  showAll: true,
+                ),
+              ),
+            ),
+      ),
+    );
+  }
+
   void _onViewAllProducts() {
-    // Navigate to full store page
-    print("Navigate to full store");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => Scaffold(
+              appBar: AppBar(
+                title: const Text(
+                  "Cửa hàng xanh",
+                  style: AppTextStyles.heading3,
+                ),
+              ),
+              body: SingleChildScrollView(
+                child: GreenStoreSection(
+                  products: _products,
+                  onViewAll: () {},
+                  onProductTap: _onProductTap,
+                  showAll: true,
+                ),
+              ),
+            ),
+      ),
+    );
   }
 
   void _onEventTap() {
     // Navigate to event detail page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => StartPage()),
+    );
     print("Navigate to event detail");
   }
 
@@ -97,7 +149,11 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               QuickOrderSection(onCreateOrder: _onCreateOrder),
               const SizedBox(height: 20),
-              PriceListSection(materials: _materials, onItemTap: _onMaterialTap),
+              PriceListSection(
+                materials: _materials,
+                onItemTap: _onMaterialTap,
+                onViewAll: _onViewAllMeterials,
+              ),
               const SizedBox(height: 20),
               GreenStoreSection(
                 products: _products,
@@ -110,7 +166,12 @@ class _HomePageState extends State<HomePage> {
         );
         break;
       case 1:
-        bodyContent = PriceListSection(materials: _materials, onItemTap: _onMaterialTap);
+        bodyContent = PriceListSection(
+          materials: _materials,
+          onItemTap: _onMaterialTap,
+          onViewAll: _onViewAllMeterials,
+          showAll: true,
+        );
         break;
       case 2:
         bodyContent = QuickOrderSection(onCreateOrder: _onCreateOrder);
@@ -129,7 +190,11 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             QuickOrderSection(onCreateOrder: _onCreateOrder),
             const SizedBox(height: 20),
-            PriceListSection(materials: _materials, onItemTap: _onMaterialTap),
+            PriceListSection(
+              materials: _materials,
+              onItemTap: _onMaterialTap,
+              onViewAll: _onViewAllMeterials,
+            ),
             const SizedBox(height: 20),
             GreenStoreSection(
               products: _products,
@@ -143,14 +208,15 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: _selectedIndex == 0
-          ? CustomAppBar(
-              user: _currentUser,
-              isBalanceVisible: _isBalanceVisible,
-              onBalanceToggle: _onBalanceToggle,
-              onPointsPressed: _onPointsPressed,
-            )
-          : null,
+      appBar:
+          _selectedIndex == 0
+              ? CustomAppBar(
+                user: _currentUser,
+                isBalanceVisible: _isBalanceVisible,
+                onBalanceToggle: _onBalanceToggle,
+                onPointsPressed: _onPointsPressed,
+              )
+              : null,
       body: bodyContent,
       bottomNavigationBar: CustomBottomNavigation(
         currentIndex: _selectedIndex,

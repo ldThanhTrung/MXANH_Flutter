@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_page.dart';
+import 'home_page.dart';
 
 // Add the WelcomePage widget here
 class WelcomePage extends StatefulWidget {

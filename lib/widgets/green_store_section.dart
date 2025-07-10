@@ -7,12 +7,14 @@ class GreenStoreSection extends StatelessWidget {
   final List<Product> products;
   final VoidCallback onViewAll;
   final Function(Product) onProductTap;
+  final bool showAll;
 
   const GreenStoreSection({
     Key? key,
     required this.products,
     required this.onViewAll,
     required this.onProductTap,
+    this.showAll = false,
   }) : super(key: key);
 
   @override
@@ -25,16 +27,18 @@ class GreenStoreSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Cửa hàng xanh", style: AppTextStyles.heading3),
-              TextButton(
-                onPressed: onViewAll,
-                child: Text(
-                  "Tất cả >",
-                  style: AppTextStyles.bodyMedium.copyWith(
-                    color: AppColor.primary,
+              if (!showAll)
+                Text("Cửa hàng xanh", style: AppTextStyles.heading3),
+              if (!showAll)
+                TextButton(
+                  onPressed: onViewAll,
+                  child: Text(
+                    "Tất cả >",
+                    style: AppTextStyles.bodyMedium.copyWith(
+                      color: AppColor.primary,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -47,7 +51,7 @@ class GreenStoreSection extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 0.8,
             ),
-            itemCount: 6,
+            itemCount: showAll ? products.length : 6,
             itemBuilder: (context, index) {
               if (index < products.length) {
                 final product = products[index];

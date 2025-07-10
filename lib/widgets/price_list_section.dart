@@ -6,11 +6,15 @@ import 'package:mxanh_flutter/models/material_item.dart';
 class PriceListSection extends StatelessWidget {
   final List<MaterialItem> materials;
   final Function(MaterialItem) onItemTap;
+  final VoidCallback onViewAll;
+  final bool showAll;
 
   const PriceListSection({
     Key? key,
     required this.materials,
     required this.onItemTap,
+    required this.onViewAll,
+    this.showAll = false,
   }) : super(key: key);
 
   @override
@@ -31,7 +35,7 @@ class PriceListSection extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 1,
             ),
-            itemCount: 6,
+            itemCount: showAll ? materials.length : 6,
             itemBuilder: (context, index) {
               if (index < materials.length) {
                 final item = materials[index];
