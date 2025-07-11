@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
 import 'package:mxanh_flutter/models/material_item.dart';
+import 'package:mxanh_flutter/screens/order_details_page.dart';
 
 class CreateOrderPage extends StatefulWidget {
   final List<MaterialItem> materials;
@@ -114,11 +115,23 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
         return;
       }
 
-      // Xử lý tạo đơn hàng
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Đã tạo đơn thu gom thành công!')),
+      // Generate order ID
+      final orderId = 'MX${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}';
+
+      // Navigate to order details page
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OrderDetailsPage(
+            selectedMaterials: selectedMaterials,
+            materials: widget.materials,
+            address: address,
+            selectedDate: selectedDate!,
+            selectedTime: selectedTime!,
+            orderId: orderId,
+          ),
+        ),
       );
-      Navigator.pop(context);
     }
   }
 
