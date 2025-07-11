@@ -14,7 +14,7 @@ import 'package:mxanh_flutter/models/product.dart';
 import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_page.dart';
-import 'package:mxanh_flutter/screens/welcome_page.dart';
+import 'package:mxanh_flutter/screens/create_order_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -57,8 +57,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _onCreateOrder() {
-    // Navigate to create order page
-    print("Navigate to create order");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => CreateOrderPage(
+              materials: _materials, 
+            ),
+      ),
+    );
   }
 
   void _onMaterialTap(MaterialItem item) {
@@ -174,7 +181,7 @@ class _HomePageState extends State<HomePage> {
         );
         break;
       case 2:
-        bodyContent = QuickOrderSection(onCreateOrder: _onCreateOrder);
+        bodyContent = CreateOrderPage(materials: _materials);
         break;
       case 3:
         bodyContent = Text("History Page");
@@ -188,7 +195,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             EventBanner(event: _currentEvent, onTap: _onEventTap),
             const SizedBox(height: 20),
-            QuickOrderSection(onCreateOrder: _onCreateOrder),
+            bodyContent = CreateOrderPage(materials: _materials),
             const SizedBox(height: 20),
             PriceListSection(
               materials: _materials,
