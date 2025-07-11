@@ -4,14 +4,15 @@ import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
 import 'package:mxanh_flutter/models/material_item.dart';
 import 'package:mxanh_flutter/screens/order_details_page.dart';
+import 'package:mxanh_flutter/screens/home_page.dart';
 
 class CreateOrderPage extends StatefulWidget {
   final List<MaterialItem> materials;
 
   const CreateOrderPage({
-    Key? key,
+    super.key,
     required this.materials,
-  }) : super(key: key);
+  });
 
   @override
   State<CreateOrderPage> createState() => _CreateOrderPageState();
@@ -140,17 +141,18 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
-        backgroundColor: AppColor.surface,
+        backgroundColor: AppColor.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColor.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          //Navigate to HomePage  
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
         ),
         title: Text(
-          'Tạo đơn',
-          style: AppTextStyles.heading3.copyWith(color: AppColor.textPrimary),
+          'Tạo đơn thu gom',
+          style: AppTextStyles.heading3.copyWith(color: Colors.white),
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: Form(
         key: _formKey,
@@ -345,7 +347,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             ],
                           ),
                         );
-                      }).toList(),
+                      }),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
+import 'package:mxanh_flutter/screens/address_list_page.dart';
+import 'package:mxanh_flutter/themes/text_styles.dart';
 
 class AccountDetailsPage extends StatefulWidget {
+  const AccountDetailsPage({super.key});
+
   @override
   _AccountDetailsPageState createState() => _AccountDetailsPageState();
 }
@@ -11,7 +15,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   final TextEditingController _emailController = TextEditingController(text: 'nguyenvana@gmail.com');
   final TextEditingController _phoneController = TextEditingController(text: '0123456789');
   final TextEditingController _dobController = TextEditingController();
-  String _gender = 'Nam';
+  final String _gender = 'Nam';
 
   @override
   void dispose() {
@@ -41,14 +45,17 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
-        backgroundColor: AppColor.surface,
+        backgroundColor: AppColor.primary,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: AppColor.textPrimary),
-          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pop(context),
         ),
-        title: Text('Chỉnh sửa thông tin', style: TextStyle(color: AppColor.textPrimary)),
-        centerTitle: false,
+        title: Text(
+          'Thông tin tài khoản',
+          style: AppTextStyles.heading3.copyWith(color: Colors.white),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -103,11 +110,12 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                   TextField(
                     controller: _nameController,
                     decoration: InputDecoration(
+                      //change color of hint text
                       filled: true,
                       fillColor: AppColor.background,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
-                      hintStyle: TextStyle(color: AppColor.textSecondary),
+                      hintStyle: TextStyle(color: Colors.black),
                       labelStyle: TextStyle(color: AppColor.textPrimary),
                     ),
                   ),
@@ -126,7 +134,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                       fillColor: AppColor.background,
                       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
-                      hintStyle: TextStyle(color: AppColor.textSecondary),
+                      hintStyle: TextStyle(color: Colors.black),
                       labelStyle: TextStyle(color: AppColor.textPrimary),
                     ),
                   ),
@@ -145,7 +153,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                       fillColor: AppColor.textSecondary.withOpacity(0.2),
                       contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(24), borderSide: BorderSide.none),
-                      hintStyle: TextStyle(color: AppColor.textSecondary),
+                      hintStyle: TextStyle(color: Colors.black),
                       labelStyle: TextStyle(color: AppColor.textPrimary),
                     ),
                   ),
@@ -157,7 +165,12 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                   ),
                   SizedBox(height: 4),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddressListPage()),
+                      );
+                    },
                     child: Container(
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -168,7 +181,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('', style: TextStyle(color: AppColor.textPrimary)),
+                          Text('erthesrheryhe', style: TextStyle(color: AppColor.textPrimary)),
                           Icon(Icons.chevron_right, color: AppColor.textSecondary),
                         ],
                       ),
