@@ -16,6 +16,7 @@ import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_page.dart';
 import 'package:mxanh_flutter/screens/create_order_page.dart';
 import 'package:mxanh_flutter/screens/product_details_page.dart';
+import 'package:mxanh_flutter/screens/cart_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,6 +56,16 @@ class _HomePageState extends State<HomePage> {
   void _onPointsPressed() {
     // Navigate to points history page
     print("Navigate to points history");
+  }
+
+  void _onCartPressed() {
+    // Navigate to cart page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CartPage(),
+      ),
+    );
   }
 
   void _onCreateOrder() {
@@ -228,6 +239,7 @@ class _HomePageState extends State<HomePage> {
                 isBalanceVisible: _isBalanceVisible,
                 onBalanceToggle: _onBalanceToggle,
                 onPointsPressed: _onPointsPressed,
+                onCartPressed: _onCartPressed,
               )
               : null,
       body: bodyContent,
