@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mxanh_flutter/screens/start_page.dart';
+import 'package:mxanh_flutter/screens/redeem_points_page.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
 import 'package:mxanh_flutter/widgets/custom_app_bar.dart';
 import 'package:mxanh_flutter/widgets/event_banner.dart';
@@ -17,6 +17,7 @@ import 'package:mxanh_flutter/screens/account_page.dart';
 import 'package:mxanh_flutter/screens/create_order_page.dart';
 import 'package:mxanh_flutter/screens/product_details_page.dart';
 import 'package:mxanh_flutter/screens/cart_page.dart';
+import 'package:mxanh_flutter/screens/redeem_points_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -55,16 +56,23 @@ class _HomePageState extends State<HomePage> {
 
   void _onPointsPressed() {
     // Navigate to points history page
-    print("Navigate to points history");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => RedeemPointsPage(
+              currentPoints: _currentUser.points,
+              products: _products,
+            ),
+      ),
+    );
   }
 
   void _onCartPressed() {
     // Navigate to cart page
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const CartPage(),
-      ),
+      MaterialPageRoute(builder: (context) => const CartPage()),
     );
   }
 
@@ -72,10 +80,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CreateOrderPage(
-              materials: _materials, 
-            ),
+        builder: (context) => CreateOrderPage(materials: _materials),
       ),
     );
   }
@@ -147,10 +152,6 @@ class _HomePageState extends State<HomePage> {
 
   void _onEventTap() {
     // Navigate to event detail page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => StartPage()),
-    );
     print("Navigate to event detail");
   }
 

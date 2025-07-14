@@ -9,10 +9,7 @@ import 'package:mxanh_flutter/screens/home_page.dart';
 class CreateOrderPage extends StatefulWidget {
   final List<MaterialItem> materials;
 
-  const CreateOrderPage({
-    super.key,
-    required this.materials,
-  });
+  const CreateOrderPage({super.key, required this.materials});
 
   @override
   State<CreateOrderPage> createState() => _CreateOrderPageState();
@@ -117,23 +114,33 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
       }
 
       // Generate order ID
-      final orderId = 'MX${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}';
+      final orderId =
+          'MX${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}';
 
       // Navigate to order details page
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => OrderDetailsPage(
-            selectedMaterials: selectedMaterials,
-            materials: widget.materials,
-            address: address,
-            selectedDate: selectedDate!,
-            selectedTime: selectedTime!,
-            orderId: orderId,
-          ),
+          builder:
+              (context) => OrderDetailsPage(
+                selectedMaterials: selectedMaterials,
+                materials: widget.materials,
+                address: address,
+                selectedDate: selectedDate!,
+                selectedTime: selectedTime!,
+                orderId: orderId,
+              ),
         ),
       );
     }
+  }
+
+  double _calculateTotalKg() {
+    double totalKg = 0.0;
+    for (var weight in selectedMaterials.values) {
+      totalKg += weight;
+    }
+    return totalKg;
   }
 
   @override
@@ -145,8 +152,12 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
-          //Navigate to HomePage  
-          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
+          //Navigate to HomePage
+          onPressed:
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              ),
         ),
         title: Text(
           'Tạo đơn thu gom',
@@ -161,7 +172,7 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              
+
               // Header
               Container(
                 width: double.infinity,
@@ -209,17 +220,25 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                   itemCount: widget.materials.length,
                   itemBuilder: (context, index) {
                     final material = widget.materials[index];
-                    final isSelected = selectedMaterials.containsKey(material.name);
-                    
+                    final isSelected = selectedMaterials.containsKey(
+                      material.name,
+                    );
+
                     return GestureDetector(
                       onTap: () => _selectMaterial(material),
                       child: Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: isSelected ? AppColor.primary.withOpacity(0.1) : AppColor.surface,
+                          color:
+                              isSelected
+                                  ? AppColor.primary.withOpacity(0.1)
+                                  : AppColor.surface,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: isSelected ? AppColor.primary : Colors.transparent,
+                            color:
+                                isSelected
+                                    ? AppColor.primary
+                                    : Colors.transparent,
                             width: 2,
                           ),
                           boxShadow: [
@@ -237,14 +256,20 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                             Icon(
                               Icons.recycling,
                               size: 24,
-                              color: isSelected ? AppColor.primary : AppColor.textSecondary,
+                              color:
+                                  isSelected
+                                      ? AppColor.primary
+                                      : AppColor.textSecondary,
                             ),
                             const SizedBox(height: 4),
                             Text(
                               material.name,
                               style: AppTextStyles.caption.copyWith(
                                 fontWeight: FontWeight.w500,
-                                color: isSelected ? AppColor.primary : AppColor.textPrimary,
+                                color:
+                                    isSelected
+                                        ? AppColor.primary
+                                        : AppColor.textPrimary,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -292,12 +317,14 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                       ),
                       const SizedBox(height: 16),
                       ...selectedMaterials.entries.map((entry) {
-                        final material = widget.materials.firstWhere((m) => m.name == entry.key);
+                        final material = widget.materials.firstWhere(
+                          (m) => m.name == entry.key,
+                        );
                         // Chuyển đổi price string thành number
                         final priceString = material.price.replaceAll(',', '');
                         final price = double.tryParse(priceString) ?? 0.0;
                         final totalPrice = price * entry.value;
-                        
+
                         return Container(
                           margin: const EdgeInsets.only(bottom: 12),
                           child: Row(
@@ -312,9 +339,14 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                               Expanded(
                                 child: TextFormField(
                                   controller: weightControllers[entry.key],
-                                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                                  keyboardType:
+                                      const TextInputType.numberWithOptions(
+                                        decimal: true,
+                                      ),
                                   inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*')),
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d*\.?\d*'),
+                                    ),
                                   ],
                                   decoration: InputDecoration(
                                     suffixText: 'kg',
@@ -322,7 +354,10 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                     ),
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 12,
+                                      vertical: 8,
+                                    ),
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -360,6 +395,25 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                           ),
                           Text(
                             '${_calculateTotalPrice().toStringAsFixed(0)}đ',
+                            style: AppTextStyles.bodyLarge.copyWith(
+                              color: AppColor.primary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Điểm mxanh:',
+                            style: AppTextStyles.bodyLarge.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            '${_calculateTotalKg().toStringAsFixed(0)} điểm',
                             style: AppTextStyles.bodyLarge.copyWith(
                               color: AppColor.primary,
                               fontWeight: FontWeight.bold,
@@ -460,16 +514,18 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    selectedDate != null 
+                                    selectedDate != null
                                         ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
                                         : 'Chọn ngày',
                                     style: AppTextStyles.bodyMedium.copyWith(
-                                      color: selectedDate != null 
-                                          ? AppColor.textPrimary 
-                                          : AppColor.textSecondary,
+                                      color:
+                                          selectedDate != null
+                                              ? AppColor.textPrimary
+                                              : AppColor.textSecondary,
                                     ),
                                   ),
                                   const Icon(Icons.calendar_today, size: 16),
@@ -489,16 +545,18 @@ class _CreateOrderPageState extends State<CreateOrderPage> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    selectedTime != null 
+                                    selectedTime != null
                                         ? '${selectedTime!.hour.toString().padLeft(2, '0')}:${selectedTime!.minute.toString().padLeft(2, '0')}'
                                         : 'Chọn giờ',
                                     style: AppTextStyles.bodyMedium.copyWith(
-                                      color: selectedTime != null 
-                                          ? AppColor.textPrimary 
-                                          : AppColor.textSecondary,
+                                      color:
+                                          selectedTime != null
+                                              ? AppColor.textPrimary
+                                              : AppColor.textSecondary,
                                     ),
                                   ),
                                   const Icon(Icons.access_time, size: 16),
