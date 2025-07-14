@@ -15,9 +15,11 @@ import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_page.dart';
 import 'package:mxanh_flutter/screens/create_order_page.dart';
+import 'package:mxanh_flutter/screens/product_details_page.dart';
+import 'package:mxanh_flutter/screens/cart_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -56,6 +58,16 @@ class _HomePageState extends State<HomePage> {
     print("Navigate to points history");
   }
 
+  void _onCartPressed() {
+    // Navigate to cart page
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const CartPage(),
+      ),
+    );
+  }
+
   void _onCreateOrder() {
     Navigator.push(
       context,
@@ -75,7 +87,12 @@ class _HomePageState extends State<HomePage> {
 
   void _onProductTap(Product product) {
     // Navigate to product detail page
-    print("Navigate to product detail: ${product.name}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailsPage(product: product),
+      ),
+    );
   }
 
   void _onViewAllMeterials() {
@@ -222,6 +239,7 @@ class _HomePageState extends State<HomePage> {
                 isBalanceVisible: _isBalanceVisible,
                 onBalanceToggle: _onBalanceToggle,
                 onPointsPressed: _onPointsPressed,
+                onCartPressed: _onCartPressed,
               )
               : null,
       body: bodyContent,

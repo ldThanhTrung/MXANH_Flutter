@@ -8,14 +8,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isBalanceVisible;
   final VoidCallback onBalanceToggle;
   final VoidCallback onPointsPressed;
+  final VoidCallback onCartPressed;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.user,
     required this.isBalanceVisible,
     required this.onBalanceToggle,
     required this.onPointsPressed,
-  }) : super(key: key);
+    required this.onCartPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(width: 12),
+                IconButton(
+                  onPressed: onCartPressed,
+                  icon: const Icon(Icons.shopping_cart, color: AppColor.primary),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                 ),
               ],
             ),

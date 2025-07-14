@@ -13,14 +13,14 @@ class OrderDetailsPage extends StatelessWidget {
   final String orderId;
 
   const OrderDetailsPage({
-    Key? key,
+    super.key,
     required this.selectedMaterials,
     required this.materials,
     required this.address,
     required this.selectedDate,
     required this.selectedTime,
     required this.orderId,
-  }) : super(key: key);
+  });
 
   double _calculateTotalPrice() {
     double total = 0.0;
@@ -45,18 +45,18 @@ class OrderDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.background,
-      appBar: AppBar(
-        backgroundColor: AppColor.surface,
+       appBar: AppBar(
+        backgroundColor: AppColor.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColor.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage())),
         ),
         title: Text(
-          'Chi tiết đơn hàng',
-          style: AppTextStyles.heading3.copyWith(color: AppColor.textPrimary),
+          'Chi tiết đơn thu gom',
+          style: AppTextStyles.heading3.copyWith(color: Colors.white),
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -270,7 +270,7 @@ class OrderDetailsPage extends StatelessWidget {
                         ],
                       ),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
             ),
