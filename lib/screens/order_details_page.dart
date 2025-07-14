@@ -13,14 +13,14 @@ class OrderDetailsPage extends StatelessWidget {
   final String orderId;
 
   const OrderDetailsPage({
-    Key? key,
+    super.key,
     required this.selectedMaterials,
     required this.materials,
     required this.address,
     required this.selectedDate,
     required this.selectedTime,
     required this.orderId,
-  }) : super(key: key);
+  });
 
   double _calculateTotalPrice() {
     double total = 0.0;
@@ -46,17 +46,21 @@ class OrderDetailsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.background,
       appBar: AppBar(
-        backgroundColor: AppColor.surface,
+        backgroundColor: AppColor.primary,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: AppColor.textPrimary),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed:
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              ),
         ),
         title: Text(
-          'Chi tiết đơn hàng',
-          style: AppTextStyles.heading3.copyWith(color: AppColor.textPrimary),
+          'Chi tiết đơn thu gom',
+          style: AppTextStyles.heading3.copyWith(color: Colors.white),
         ),
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -169,7 +173,10 @@ class OrderDetailsPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.orange.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(20),
@@ -213,7 +220,9 @@ class OrderDetailsPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   ...selectedMaterials.entries.map((entry) {
-                    final material = materials.firstWhere((m) => m.name == entry.key);
+                    final material = materials.firstWhere(
+                      (m) => m.name == entry.key,
+                    );
                     final priceString = material.price.replaceAll(',', '');
                     final price = double.tryParse(priceString) ?? 0.0;
                     final totalPrice = price * entry.value;
@@ -270,7 +279,7 @@ class OrderDetailsPage extends StatelessWidget {
                         ],
                       ),
                     );
-                  }).toList(),
+                  }),
                 ],
               ),
             ),
@@ -320,10 +329,7 @@ class OrderDetailsPage extends StatelessWidget {
                                 color: AppColor.textSecondary,
                               ),
                             ),
-                            Text(
-                              address,
-                              style: AppTextStyles.bodyMedium,
-                            ),
+                            Text(address, style: AppTextStyles.bodyMedium),
                           ],
                         ),
                       ),
@@ -363,6 +369,7 @@ class OrderDetailsPage extends StatelessWidget {
             ),
 
             // Summary
+            // Summary
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               padding: const EdgeInsets.all(16),
@@ -391,14 +398,25 @@ class OrderDetailsPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        'Tổng khối lượng:',
-                        style: AppTextStyles.bodyMedium,
-                      ),
+                      Text('Tổng khối lượng:', style: AppTextStyles.bodyMedium),
                       Text(
                         '${_calculateTotalWeight().toStringAsFixed(1)} kg',
                         style: AppTextStyles.bodyMedium.copyWith(
                           fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Điểm mxanh:', style: AppTextStyles.bodyMedium),
+                      Text(
+                        '${_calculateTotalWeight().toStringAsFixed(0)} điểm',
+                        style: AppTextStyles.bodyMedium.copyWith(
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.primary,
                         ),
                       ),
                     ],

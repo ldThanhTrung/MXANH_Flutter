@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mxanh_flutter/screens/start_page.dart';
+import 'package:mxanh_flutter/screens/redeem_points_page.dart';
 import 'package:mxanh_flutter/themes/text_styles.dart';
 import 'package:mxanh_flutter/widgets/custom_app_bar.dart';
 import 'package:mxanh_flutter/widgets/event_banner.dart';
@@ -15,9 +15,12 @@ import 'package:mxanh_flutter/models/event.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_page.dart';
 import 'package:mxanh_flutter/screens/create_order_page.dart';
+import 'package:mxanh_flutter/screens/product_details_page.dart';
+import 'package:mxanh_flutter/screens/cart_page.dart';
+import 'package:mxanh_flutter/screens/redeem_points_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -53,17 +56,31 @@ class _HomePageState extends State<HomePage> {
 
   void _onPointsPressed() {
     // Navigate to points history page
-    print("Navigate to points history");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => RedeemPointsPage(
+              currentPoints: _currentUser.points,
+              products: _products,
+            ),
+      ),
+    );
+  }
+
+  void _onCartPressed() {
+    // Navigate to cart page
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CartPage()),
+    );
   }
 
   void _onCreateOrder() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CreateOrderPage(
-              materials: _materials, 
-            ),
+        builder: (context) => CreateOrderPage(materials: _materials),
       ),
     );
   }
@@ -75,7 +92,12 @@ class _HomePageState extends State<HomePage> {
 
   void _onProductTap(Product product) {
     // Navigate to product detail page
-    print("Navigate to product detail: ${product.name}");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProductDetailsPage(product: product),
+      ),
+    );
   }
 
   void _onViewAllMeterials() {
@@ -218,6 +240,7 @@ class _HomePageState extends State<HomePage> {
                 isBalanceVisible: _isBalanceVisible,
                 onBalanceToggle: _onBalanceToggle,
                 onPointsPressed: _onPointsPressed,
+                onCartPressed: _onCartPressed,
               )
               : null,
       body: bodyContent,
