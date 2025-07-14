@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mxanh_flutter/themes/app_color.dart';
 import 'package:mxanh_flutter/screens/account_details_page.dart';
-import 'package:mxanh_flutter/screens/welcome_page.dart'; // Import màn WelcomePage
+import 'package:mxanh_flutter/screens/start_page.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -291,7 +291,7 @@ class AccountPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => WelcomePage()),
+                  MaterialPageRoute(builder: (context) => StartPage()),
                   (route) => false,
                 );
               },

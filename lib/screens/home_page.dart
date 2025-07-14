@@ -147,10 +147,6 @@ class _HomePageState extends State<HomePage> {
 
   void _onEventTap() {
     // Navigate to event detail page
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => StartPage()),
-    );
     print("Navigate to event detail");
   }
 
