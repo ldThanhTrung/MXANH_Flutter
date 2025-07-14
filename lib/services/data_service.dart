@@ -20,6 +20,9 @@ class DataService {
       MaterialItem(name: "Giấy báo", price: "1,200", unit: "VNĐ/kg"),
       MaterialItem(name: "Sắt phế liệu", price: "8,000", unit: "VNĐ/kg"),
       MaterialItem(name: "Thùng carton", price: "1,800", unit: "VNĐ/kg"),
+      MaterialItem(name: "Nghia béo", price: "2,800", unit: "VNĐ/kg"),
+      MaterialItem(name: "Triệu béo", price: "4,800", unit: "VNĐ/kg"),
+      MaterialItem(name: "Liêm béo", price: "5,800", unit: "VNĐ/kg"),
     ];
   }
 
