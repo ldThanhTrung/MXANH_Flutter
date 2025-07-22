@@ -7,7 +7,8 @@ class DataService {
   static User getCurrentUser() {
     return User(
       name: "VI MXANH",
-      phoneNumber: "xxx.xxx.xxx VND",
+      phoneNumber: "0123456789",
+      cash: "xxx.xxx.xxx VND",
       balance: "xxx.xxx điểm",
       points: 2500,
       avatar: "assets/avatar.png",
