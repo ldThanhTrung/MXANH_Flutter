@@ -57,22 +57,24 @@ class _HomePageState extends State<HomePage> {
   void _onPointsPressed() {
     // Navigate to points history page
     Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder:
-            (context) => RedeemPointsPage(
-              currentPoints: _currentUser.points,
-              products: _products,
-            ),
-      ),
-    );
+  context,
+  MaterialPageRoute(
+    builder: (context) => RedeemPointsPage(
+      currentPoints: _currentUser.points,
+      products: _products,
+    ),
+  ),
+);
+
   }
 
   void _onCartPressed() {
     // Navigate to cart page
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const CartPage()),
+      MaterialPageRoute(
+        builder: (context) => const CartPage(),
+      ),
     );
   }
 
@@ -80,7 +82,10 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CreateOrderPage(materials: _materials),
+        builder:
+            (context) => CreateOrderPage(
+              materials: _materials, 
+            ),
       ),
     );
   }

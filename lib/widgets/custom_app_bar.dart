@@ -41,7 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(user.name, style: AppTextStyles.bodyLarge),
-                      Text(user.phoneNumber, style: AppTextStyles.bodySmall),
+                      Text(user.cash, style: AppTextStyles.bodySmall),
                     ],
                   ),
                 ),
