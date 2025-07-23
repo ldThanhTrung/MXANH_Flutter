@@ -18,6 +18,7 @@ import 'package:mxanh_flutter/screens/create_order_page.dart';
 import 'package:mxanh_flutter/screens/product_details_page.dart';
 import 'package:mxanh_flutter/screens/cart_page.dart';
 import 'package:mxanh_flutter/screens/redeem_points_page.dart';
+import 'package:mxanh_flutter/screens/order_history_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,6 +35,7 @@ class _HomePageState extends State<HomePage> {
   late List<MaterialItem> _materials;
   late List<Product> _products;
   late Event _currentEvent;
+  late List<Map<String, dynamic>> _orderHistory;
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _HomePageState extends State<HomePage> {
     _materials = DataService.getMaterialPriceList();
     _products = DataService.getGreenProducts();
     _currentEvent = DataService.getCurrentEvent();
+    _orderHistory = DataService.orderHistory;
   }
 
   void _onBalanceToggle() {
@@ -57,24 +60,22 @@ class _HomePageState extends State<HomePage> {
   void _onPointsPressed() {
     // Navigate to points history page
     Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => RedeemPointsPage(
-      currentPoints: _currentUser.points,
-      products: _products,
-    ),
-  ),
-);
-
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => RedeemPointsPage(
+              currentPoints: _currentUser.points,
+              products: _products,
+            ),
+      ),
+    );
   }
 
   void _onCartPressed() {
     // Navigate to cart page
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => const CartPage(),
-      ),
+      MaterialPageRoute(builder: (context) => const CartPage()),
     );
   }
 
@@ -82,10 +83,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder:
-            (context) => CreateOrderPage(
-              materials: _materials, 
-            ),
+        builder: (context) => CreateOrderPage(materials: _materials),
       ),
     );
   }
@@ -207,7 +205,7 @@ class _HomePageState extends State<HomePage> {
         bodyContent = CreateOrderPage(materials: _materials);
         break;
       case 3:
-        bodyContent = Text("History Page");
+        bodyContent = OrderHistoryPage(orderHistory: _orderHistory);
         break;
       case 4:
         bodyContent = AccountPage();
@@ -218,7 +216,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             EventBanner(event: _currentEvent, onTap: _onEventTap),
             const SizedBox(height: 20),
-            bodyContent = CreateOrderPage(materials: _materials),
+            CreateOrderPage(materials: _materials),
             const SizedBox(height: 20),
             PriceListSection(
               materials: _materials,
