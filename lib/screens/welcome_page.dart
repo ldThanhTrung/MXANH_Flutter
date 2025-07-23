@@ -70,7 +70,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 child: ElevatedButton(
                   onPressed: () {
                     // You can save the name or proceed to signup
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (_) => HomePage()),
                     );
